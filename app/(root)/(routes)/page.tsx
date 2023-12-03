@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { Modal } from "@/components/ui/modal";
 import { userStoreModal } from "@/hooks/use-store-modal";
 
 export default function Home() {
