@@ -6,11 +6,11 @@ import { userStoreModal } from "@/hooks/use-store-modal";
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
-  const onOpen = userStoreModal((state) => state.onOpen)
-  const isOpen = userStoreModal((state) => state.isOpen)
+  const onOpen = userStoreModal((state) => state.onOpen);
+  const isOpen = userStoreModal((state) => state.isOpen);
 
   useEffect(() => {
-    if(!isOpen) {
+    if (!isOpen) {
       onOpen();
     }
   }, [onOpen, isOpen]);
@@ -23,9 +23,5 @@ export default function Home() {
     return null;
   }
 
-  return (
-    <div className="text-3xl">
-      Root Page dfdfdf
-    </div>
-  );
+  return null;
 }
