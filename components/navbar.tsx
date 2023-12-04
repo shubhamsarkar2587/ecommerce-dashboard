@@ -6,16 +6,16 @@ import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
-  const {userId} = auth();
+  const { userId } = auth();
   if (!userId) {
-    redirect("/sign-in")
+    redirect("/sign-in");
   }
 
   const stores = await prismadb.store.findMany({
     where: {
-      userId
-    }
-  })
+      userId,
+    },
+  });
   return (
     <div className="border-b">
       <div className="h-16 px-4 flex items-center">
@@ -26,7 +26,7 @@ const Navbar = async () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Navbar;
