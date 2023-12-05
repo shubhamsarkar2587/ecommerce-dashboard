@@ -21,7 +21,7 @@ export function MainNav({
   ];
 
   return (
-    <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
+    <nav className={cn("flex items-center mx-4 md:mx-6", className)}>
       {routes.map((route, i) => (
         <Link
           key={`navbar_route_${i}`}
