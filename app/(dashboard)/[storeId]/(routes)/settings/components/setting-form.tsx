@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
 
 interface SettingFormProps {
   initialData: Store;
@@ -51,7 +52,7 @@ export const SettingForm: React.FC<SettingFormProps> = ({ initialData }) => {
       setLoading(true);
       axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
-      toast.success("Store updated.")
+      toast.success("Store updated.");
     } catch (error) {
       toast.error("something went wrong.");
     } finally {
@@ -61,18 +62,18 @@ export const SettingForm: React.FC<SettingFormProps> = ({ initialData }) => {
 
   const onDelete = async () => {
     try {
-      setLoading(true)
-      axios.delete(`/api/stores/${params.storeId}`)
+      setLoading(true);
+      axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
-      router.push('/')
-      toast.success("store deleted.")
+      router.push("/");
+      toast.success("store deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all products and categories first.")
+      toast.error("Make sure you removed all products and categories first.");
     } finally {
       setLoading(false);
-      setOpen(false)
+      setOpen(false);
     }
-  }
+  };
 
   return (
     <>
@@ -123,6 +124,8 @@ export const SettingForm: React.FC<SettingFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert title="NEXT_PUBLIC_API_PUBLIC" description={`${origin}/api/${params.storeId}`} variant="public" />
     </>
   );
 };
