@@ -14,6 +14,11 @@ export function MainNav({
 
   const routes = [
     {
+      href: `/${params.storeId}`,
+      label: "Dashboard",
+      active: pathname === `/${params.storeId}`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,
@@ -21,7 +26,7 @@ export function MainNav({
   ];
 
   return (
-    <nav className={cn("flex items-center mx-4 md:mx-6", className)}>
+    <nav className={cn("flex items-center mx-4 md:mx-6 gap-x-4", className)}>
       {routes.map((route, i) => (
         <Link
           key={`navbar_route_${i}`}
