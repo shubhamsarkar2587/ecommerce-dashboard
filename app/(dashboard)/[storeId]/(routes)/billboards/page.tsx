@@ -19,7 +19,7 @@ const BillboardPage = async ({params}: { params: { storeId: string }}) => {
     id: item.id,
     label: item.label,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
+  }))
 
   return (
     <div className="flex-col">
