@@ -26,18 +26,18 @@ import { AlertModal } from "@/components/modals/alert-modal";
 
 const formSchema = z.object({
   name: z.string().min(1),
-  value: z.string().min(1),
+  value: z.string().min(4).regex(/^#/, {
+    message: "string must be a valid hash code",
+  }),
 });
 
 type ColorFormValues = z.infer<typeof formSchema>;
 
 interface ColorFormProps {
-  initialData: Color | null
+  initialData: Color | null;
 }
 
-export const ColorForm: React.FC<ColorFormProps> = ({
-  initialData,
-}) => {
+export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -46,9 +46,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({
 
   const title = initialData ? "Edit color" : "Create color";
   const description = initialData ? "Edit a color" : "Add a new color";
-  const toastMessage = initialData
-    ? "Color updated."
-    : "Color created.";
+  const toastMessage = initialData ? "Color updated." : "Color created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<ColorFormValues>({
@@ -65,10 +63,10 @@ export const ColorForm: React.FC<ColorFormProps> = ({
       if (initialData) {
         axios.patch(`/api/${params.storeId}/colors/${params.colorId}`, data);
       } else {
-        axios.post (`/api/${params.storeId}/colors`, data);
+        axios.post(`/api/${params.storeId}/colors`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/colors`)
+      router.push(`/${params.storeId}/colors`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("something went wrong.");
@@ -85,7 +83,9 @@ export const ColorForm: React.FC<ColorFormProps> = ({
       router.push(`/${params.storeId}/colors`);
       toast.success("Color deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all categories using this color first.");
+      toast.error(
+        "Make sure you removed all categories using this color first."
+      );
     } finally {
       setLoading(false);
       setOpen(false);
@@ -144,11 +144,19 @@ export const ColorForm: React.FC<ColorFormProps> = ({
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Color Value"
-                      {...field}
-                    />
+                    <div className="flex items-center gap-x-4">
+                      <Input
+                        disabled={loading}
+                        placeholder="Color Value"
+                        {...field}
+                      />
+                      <div
+                        className="border p-4 rounded-full"
+                        style={{
+                          backgroundColor: field.value,
+                        }}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
